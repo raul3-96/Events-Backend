@@ -1,0 +1,707 @@
+{
+    "_id": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+    "colName": "DeliverUS",
+    "created": "2021-07-25T08:18:17.292Z",
+    "sortNum": 10000,
+    "folders": [
+        {
+            "_id": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "USERS",
+            "containerId": "",
+            "created": "2021-07-25T08:18:17.294Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "INVITATIONS",
+            "containerId": "",
+            "created": "2023-06-19T07:53:43.611Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "282d2013-b59b-4fd8-abc1-9dc8354350a4",
+            "name": "INVITATIONSGUEST",
+            "containerId": "",
+            "created": "2023-06-29T09:10:47.283Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "615f4cb8-f83f-46cc-b8fd-d3fce124a770",
+            "name": "COUPLE",
+            "containerId": "",
+            "created": "2023-06-30T12:41:10.651Z",
+            "sortNum": 60000
+        }
+    ],
+    "settings": {},
+    "requests": [
+        {
+            "_id": "47a7d97c-8157-479b-ab50-71f31aa00a84",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "LOGIN OWNER",
+            "url": "{{base_url}}/users/loginOwner",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2021-07-25T08:18:17.295Z",
+            "modified": "2023-06-27T19:26:47.501Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"phone\": \"+3466677888\",\n    \"password\": \"secret\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.token",
+                    "action": "setto",
+                    "value": "{{token}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "5d861b9b-234c-4171-9193-004889374bac",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "GET USER",
+            "url": "{{base_url}}/users",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2021-07-25T08:18:17.295Z",
+            "modified": "2023-07-10T07:22:17.720Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "dc8caa03-6c89-44e3-832a-6e305174d9bc",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "REGISTER NEW CUSTOMER VALIDATE FIELDS",
+            "url": "{{base_url}}/users/register",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2021-07-25T08:18:17.296Z",
+            "modified": "2023-02-08T11:34:06.333Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "firstName",
+                        "value": ""
+                    },
+                    {
+                        "name": "lastName",
+                        "value": ""
+                    },
+                    {
+                        "name": "email",
+                        "value": "notAValidEmail"
+                    },
+                    {
+                        "name": "password",
+                        "value": "with spaces"
+                    },
+                    {
+                        "name": "phone",
+                        "value": ""
+                    },
+                    {
+                        "name": "address",
+                        "value": ""
+                    },
+                    {
+                        "name": "postalCode",
+                        "value": ""
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "avatar",
+                        "value": "../example_assets/femaleAvatar.png"
+                    }
+                ]
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "422"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[0].param",
+                    "action": "equal",
+                    "value": "firstName"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[1].param",
+                    "action": "equal",
+                    "value": "lastName"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[2].param",
+                    "action": "equal",
+                    "value": "email"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[3].param",
+                    "action": "equal",
+                    "value": "password"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[4].param",
+                    "action": "equal",
+                    "value": "password"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[5].param",
+                    "action": "equal",
+                    "value": "phone"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[6].param",
+                    "action": "equal",
+                    "value": "address"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[7].param",
+                    "action": "equal",
+                    "value": "postalCode"
+                }
+            ]
+        },
+        {
+            "_id": "64481e61-8152-4d2a-9df5-02a7d8872535",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "REGISTER NEW OWNER",
+            "url": "{{base_url}}/users/registerOwner",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2021-07-31T10:03:02.720Z",
+            "modified": "2023-02-08T11:34:01.334Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "firstName",
+                        "value": "Owner creado"
+                    },
+                    {
+                        "name": "lastName",
+                        "value": "Owner creado last name"
+                    },
+                    {
+                        "name": "email",
+                        "value": "{{#randomEmail}}"
+                    },
+                    {
+                        "name": "password",
+                        "value": "s3_!crET"
+                    },
+                    {
+                        "name": "phone",
+                        "value": "123456789"
+                    },
+                    {
+                        "name": "address",
+                        "value": "owner creado address"
+                    },
+                    {
+                        "name": "postalCode",
+                        "value": "41001"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "avatar",
+                        "value": "../example_assets/maleAvatar.png"
+                    }
+                ]
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.token",
+                    "action": "setto",
+                    "value": "{{token}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "618bd9ed-28f6-4582-995d-503b07cfc224",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "ISTOKENVALID",
+            "url": "{{base_url}}/users/isTokenValid",
+            "method": "PUT",
+            "sortNum": 35000,
+            "created": "2021-08-02T09:23:02.302Z",
+            "modified": "2021-08-04T15:01:25.424Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"token\": \"{{token}}\"}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "cf927f9d-8665-4c65-a173-cdf495d403b6",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "CHECK INVALID TOKEN",
+            "url": "{{base_url}}/users/2",
+            "method": "GET",
+            "sortNum": 32500,
+            "created": "2021-08-19T10:35:08.918Z",
+            "modified": "2021-08-19T10:36:46.447Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "invalidToken"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "401"
+                }
+            ]
+        },
+        {
+            "_id": "4750f430-7170-488b-bca0-90099ec4ee4c",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "LOGIN GUEST",
+            "url": "{{base_url}}/users/login",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-01-23T10:21:42.883Z",
+            "modified": "2023-06-14T11:38:12.839Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"phone\": \"+3466677882\",\n    \"password\": \"secret\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.token",
+                    "action": "setto",
+                    "value": "{{token}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "b2af643d-3648-4ac3-8d7f-f6c5309c7f8e",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "REGISTER NEW CUSTOMER",
+            "url": "{{base_url}}/users/register",
+            "method": "POST",
+            "sortNum": 37500,
+            "created": "2023-02-02T08:53:15.879Z",
+            "modified": "2023-06-14T12:41:54.726Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\":\"Carmen2\",\n  \"lastName\":\"Gomez2\",\n  \"password\":\"dfdsagfdsgdsgfdsfsfsafdafafdsa\",\n  \"phone\":\"1234567892\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.token",
+                    "action": "setto",
+                    "value": "{{token}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "f899f228-2816-45bd-84ba-ffe7ca512523",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "ead86d58-f798-4984-b6f1-35dc35457200",
+            "name": "LoGIN NEW",
+            "url": "{{base_url}}/users/loginOwner",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2023-06-14T11:17:03.769Z",
+            "modified": "2023-06-14T11:37:17.581Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"phone\": \"+3466677888\",\n    \"password\": \"secret\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bdf816a0-722d-43dd-8442-c028e02327b5",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "ALL INVITATIONS",
+            "url": "{{base_url}}/invitations",
+            "method": "GET",
+            "sortNum": 240000,
+            "created": "2023-06-19T07:54:10.338Z",
+            "modified": "2023-06-27T19:18:09.518Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b88dac8a-d551-47fd-a1f6-f09bc141bd55",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "CREATE INVITATION",
+            "url": "{{base_url}}/invitations",
+            "method": "POST",
+            "sortNum": 250000,
+            "created": "2023-06-27T19:24:20.373Z",
+            "modified": "2023-06-27T20:51:57.177Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userId\":4\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6d0d3c18-4791-47c5-8593-f2e6d9ec3662",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "GetInvitationONE",
+            "url": "{{base_url}}/invitationsId/2",
+            "method": "GET",
+            "sortNum": 260000,
+            "created": "2023-06-27T21:03:37.718Z",
+            "modified": "2023-07-19T15:57:21.814Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "87988e88-e359-486d-8e33-e767c9b6a16a",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "UpdateInvitation",
+            "url": "{{base_url}}/invitations/1",
+            "method": "PUT",
+            "sortNum": 270000,
+            "created": "2023-06-27T21:06:52.100Z",
+            "modified": "2023-06-29T09:06:38.124Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\":\"denied\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "650b63ad-5ec8-4dee-a099-bae5f00f49f5",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "DeleteInvitation",
+            "url": "{{base_url}}/invitations/1",
+            "method": "DELETE",
+            "sortNum": 280000,
+            "created": "2023-06-29T09:07:22.293Z",
+            "modified": "2023-06-29T19:12:46.694Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2bca2249-370d-4dc5-89f1-765671496e56",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "282d2013-b59b-4fd8-abc1-9dc8354350a4",
+            "name": "Get Guest by Invitation",
+            "url": "{{base_url}}/invitations/1/guests",
+            "method": "GET",
+            "sortNum": 290000,
+            "created": "2023-06-29T09:11:11.671Z",
+            "modified": "2023-07-26T18:41:05.761Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "e65a9253-1a2b-4708-8ee7-a1ea678fa816",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "282d2013-b59b-4fd8-abc1-9dc8354350a4",
+            "name": "Actualiza guest",
+            "url": "{{base_url}}/invitations/2/guests",
+            "method": "PUT",
+            "sortNum": 300000,
+            "created": "2023-06-29T16:33:20.843Z",
+            "modified": "2023-07-26T18:42:59.520Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[{\n  \"name\":\"prueba2\",\n  \"child\":false\n}\n]",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2a02ea86-a24a-40ed-9b6d-2a9ef01efc1f",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "282d2013-b59b-4fd8-abc1-9dc8354350a4",
+            "name": "New Guests",
+            "url": "{{base_url}}/invitations/1/guests",
+            "method": "POST",
+            "sortNum": 310000,
+            "created": "2023-06-29T19:33:23.873Z",
+            "modified": "2023-07-19T18:10:22.323Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[{\n  \"name\":\"PruebaDelete\",\n  \"child\":false,\n  \"alergenos\":\"\"\n}\n]",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "cdb64dea-2fed-4f0d-a9c7-d49107922cc9",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "615f4cb8-f83f-46cc-b8fd-d3fce124a770",
+            "name": "GetCouple",
+            "url": "{{base_url}}/couples/1",
+            "method": "GET",
+            "sortNum": 320000,
+            "created": "2023-06-30T12:41:19.826Z",
+            "modified": "2023-07-04T19:48:27.447Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "8534340a-5c5b-405c-9f06-b11e9e3b1e9e",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "615f4cb8-f83f-46cc-b8fd-d3fce124a770",
+            "name": "SetCouple",
+            "url": "{{base_url}}/couples",
+            "method": "POST",
+            "sortNum": 330000,
+            "created": "2023-07-04T19:50:34.070Z",
+            "modified": "2023-07-05T18:25:47.434Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"husbandName\":\"sdadasd\",\n  \"wifeName\":\"sdadasd\",\n  \"weddingDate\":\"2025-08-07\",\n  \"weddingVenue\":\"sdadasd2\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"timingWedding\":\"12:00:00\",\n  \"timingInvitation\":\"12:00:00\",\n  \"timingParty\":\"12:00:00\",\n  \"about\":\"59595dsd\",\n  \"userId\":3\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "0aa0cbe3-0fda-4573-aee9-74a1e4ce2b5c",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "615f4cb8-f83f-46cc-b8fd-d3fce124a770",
+            "name": "Put Couple",
+            "url": "{{base_url}}/couples/1",
+            "method": "PUT",
+            "sortNum": 340000,
+            "created": "2023-07-05T13:57:21.108Z",
+            "modified": "2023-07-14T20:07:12.837Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"wifeName\":\"Carmen\",\n  \"weddingDate\":\"2024-06-08\",\n  \"weddingVenue\":\"Hacienda La Ruana Alta\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"timingWedding\":\"15:00:03\",\n  \"timingInvitation\":\"15:00:03\",\n  \"timingParty\":\"15:00:03\",\n  \"about\":\"59595dsd\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "acfddc4c-d406-45c7-b537-6030b6ead270",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "Confirmar",
+            "url": "{{base_url}}/invitations/1/confirm",
+            "method": "PATCH",
+            "sortNum": 350000,
+            "created": "2023-07-10T07:19:38.408Z",
+            "modified": "2023-07-10T07:41:47.867Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d5fb70b8-dd52-497d-b518-dcf26771d286",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "Denied",
+            "url": "{{base_url}}/invitations/1/denied",
+            "method": "PATCH",
+            "sortNum": 360000,
+            "created": "2023-07-10T07:41:58.127Z",
+            "modified": "2023-07-10T07:42:54.354Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7ba88272-c0ad-4f37-8b6a-45f28d1e57cc",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "97df54e0-3869-4a38-8876-c85c1c2cb6b4",
+            "name": "PendingMaster",
+            "url": "{{base_url}}/invitations/1/pending",
+            "method": "PATCH",
+            "sortNum": 380000,
+            "created": "2023-07-10T07:52:47.639Z",
+            "modified": "2023-07-10T07:53:05.582Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "33294fd7-345e-4b6c-aabb-2f146551bc56",
+            "colId": "6afcdfbe-f7b7-44e4-8c31-43f2d2c54322",
+            "containerId": "282d2013-b59b-4fd8-abc1-9dc8354350a4",
+            "name": "Delete GuestInvitation",
+            "url": "{{base_url}}/invitations/guests/4",
+            "method": "DELETE",
+            "sortNum": 320000,
+            "created": "2023-07-19T18:38:48.547Z",
+            "modified": "2023-07-19T18:39:13.390Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        }
+    ]
+}
