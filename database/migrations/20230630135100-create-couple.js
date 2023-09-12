@@ -27,11 +27,8 @@ module.exports = {
       invitationPlace:{
         type: Sequelize.STRING,
       },
-      timingWedding:{
-        type: Sequelize.TIME,
-      },
-      timingInvitation:{
-        type: Sequelize.TIME,
+      invitationDate:{
+        type: Sequelize.DATE,
       },
       timingParty:{
         type: Sequelize.TIME,

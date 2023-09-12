@@ -160,7 +160,7 @@ exports.updateGuest = async function (req, res) {
     guest.name = req.body.name
   if(req.body.alergenos)
     guest.alergenos = req.body.alergenos
-  if(req.body.child || !req.body.child)
+  if(req.body.child != null && (req.body.child || !req.body.child))
     guest.child = req.body.child
   try {
     //const result = await GuestInvitation.destroy({ where: { id: req.params.id },transaction })

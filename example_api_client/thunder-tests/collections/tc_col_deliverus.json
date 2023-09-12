@@ -599,7 +599,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"husbandName\":\"sdadasd\",\n  \"wifeName\":\"sdadasd\",\n  \"weddingDate\":\"2025-08-07\",\n  \"weddingVenue\":\"sdadasd2\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"timingWedding\":\"12:00:00\",\n  \"timingInvitation\":\"12:00:00\",\n  \"timingParty\":\"12:00:00\",\n  \"about\":\"59595dsd\",\n  \"userId\":3\n}",
+                "raw": "{\n  \"husbandName\":\"sdadasd\",\n  \"wifeName\":\"sdadasd\",\n  \"weddingDate\":\"2025-08-07\",\n  \"weddingVenue\":\"sdadasd2\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"invitationDate\":\"2025-08-07\",\n  \"timingParty\":\"12:00:00\",\n  \"about\":\"59595dsd\",\n  \"userId\":3\n}",
                 "form": []
             },
             "auth": {
@@ -622,7 +622,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"wifeName\":\"Carmen\",\n  \"weddingDate\":\"2024-06-08\",\n  \"weddingVenue\":\"Hacienda La Ruana Alta\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"timingWedding\":\"15:00:03\",\n  \"timingInvitation\":\"15:00:03\",\n  \"timingParty\":\"15:00:03\",\n  \"about\":\"59595dsd\"\n}",
+                "raw": "{\n  \"wifeName\":\"Carmen\",\n  \"weddingDate\":\"2024-06-08\",\n  \"weddingVenue\":\"Hacienda La Ruana Alta\",\n  \"invitationPlace\":\"sdadasd2\",\n  \"invitationDate\":\"2025-08-07\",\n  \"timingParty\":\"15:00:03\",\n  \"about\":\"59595dsd\"\n}",
                 "form": []
             },
             "auth": {
