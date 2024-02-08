@@ -26,18 +26,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()
-      },
-      userId: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: {
-            tableName: 'Users'
-          },
-          key: 'id'
-        }
       }
     })
     await queryInterface.createTable('GuestInvitations', {
@@ -58,9 +46,16 @@ module.exports = {
         },
         onDelete: 'cascade'
       },
-      name: {
+      userId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        },
+        onDelete: 'cascade'
       },
       child: {
         allowNull: false,
@@ -84,7 +79,7 @@ module.exports = {
     await queryInterface.addIndex(
       'GuestInvitations',
       {
-        fields: ['id','invitationId', 'name'],
+        fields: ['id','invitationId', 'userId'],
         unique: true
       }
     )

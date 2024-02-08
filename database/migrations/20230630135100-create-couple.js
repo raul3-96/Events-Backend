@@ -27,19 +27,11 @@ module.exports = {
       invitationPlace:{
         type: Sequelize.STRING,
       },
-      invitationDate:{
-        type: Sequelize.DATE,
-      },
       timingParty:{
         type: Sequelize.TIME,
       },
       about:{
         type: Sequelize.STRING,
-      },
-      userId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        unique: true
       },
       createdAt: {
         allowNull: false,

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      User.hasMany(models.Invitation, { foreignKey: 'userId' })
+      User.hasMany(models.GuestInvitation, { foreignKey: 'userId' })
     }
   }
   User.init({
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     phone: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
       unique: true
     },

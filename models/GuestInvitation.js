@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class GuestInvitation extends Model {
     static associate(models) {
       GuestInvitation.belongsTo(models.Invitation, { foreignKey: 'invitationId', as: 'invitation' , onDelete: 'cascade'})
+	    GuestInvitation.belongsTo(models.User, { foreignKey: 'userId', as: 'user' , onDelete: 'cascade'})
     }
   }
 
@@ -21,11 +22,13 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
+      userId:{
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.INTEGER
+      },
       child: {
         type: DataTypes.BOOLEAN
-      },
-      name: {
-        type: DataTypes.STRING
       },
       alergenos:{
         type: DataTypes.STRING

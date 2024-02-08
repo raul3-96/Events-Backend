@@ -15,7 +15,11 @@
   },
   "scripts": {
     "start": "nodemon --ignore ./example_api_client/ backend.js",
-    "docker_debug": "nodemon --ignore ./example_api_client/ --inspect=0.0.0.0:9229 backend.js"
+    "docker_debug": "nodemon --ignore ./example_api_client/ --inspect=0.0.0.0:9229 backend.js",
+    "migrate:down":"npx sequelize db:migrate:undo:all",
+    "migrate:up":"npx sequelize db:migrate",
+    "seed:down" : "npx sequelize db:seed:undo:all",
+    "seed:up" : "npx sequelize db:seed:all"
   },
   "devDependencies": {
     "eslint": "^8.32.0",

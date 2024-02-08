@@ -11,21 +11,35 @@ module.exports = (options) => {
   
   app.route('/invitations')
     .get(
+      middlewares.isLoggedIn,
+      middlewares.hasRole('owner'),
       InvitationController.index)
+    .post(
+      middlewares.isLoggedIn,
+      middlewares.hasRole('owner'),
+      //InvitationValidation.create,
+      middlewares.handleValidation,
+      InvitationController.create)
+    .put(
+      middlewares.isLoggedIn,
+      middlewares.hasRole('owner'),
+      InvitationController.updateUser
+    )
+
+  app.route('/invitations/:invitationId')
+    .get(InvitationController.show)
     .post(
       middlewares.isLoggedIn,
       middlewares.hasRole('owner'),
       InvitationValidation.create,
       middlewares.handleValidation,
       InvitationController.create)
-
-  app.route('/invitations/:invitationId')
-    .get(InvitationController.show)
     .delete(
       middlewares.isLoggedIn,
       middlewares.hasRole('owner'),
       middlewares.checkEntityExists(Invitation, 'invitationId'),
       InvitationController.destroy)
+
   app.route('/invitationsId/:userId')
     .get(InvitationController.showByUser)
   
@@ -52,6 +66,23 @@ module.exports = (options) => {
       middlewares.handleValidation,
       InvitationController.pending)
       
+  app.route('/invitations/guests')
+    .post(middlewares.isLoggedIn,
+      middlewares.hasRole('guest'),
+      InvitationValidation.createGuest,
+      middlewares.checkInvitationOwner,
+      middlewares.handleValidation,
+      InvitationController.createGuest)
+
+  app.route('/invitations/addGuests/:userId')
+  //TODO AÑADIR UN USUARIO NUEVO POR PROPIETARIOS DE INVITACIONES
+    .post(middlewares.isLoggedIn,
+      middlewares.hasRole('guest'),
+      InvitationValidation.createGuest,
+      middlewares.checkInvitationOwner,
+      middlewares.handleValidation,
+      InvitationController.createGuest)
+
   app.route('/invitations/:invitationId/guests')
     .get(
       InvitationController.indexInvitation)
@@ -71,7 +102,6 @@ module.exports = (options) => {
   
   app.route('/invitations/guests/:id')
     .delete(middlewares.isLoggedIn,
-      middlewares.hasRole('guest'),
       middlewares.checkEntityExists(GuestInvitation, 'id'),
       InvitationController.destroyGuest)
     .put(

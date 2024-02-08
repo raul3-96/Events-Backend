@@ -25,12 +25,12 @@ const checkUserExits = async (value, { req }) => {
     if (user === null) {
       return Promise.reject(new Error('The userId does not exist.'))
     } else { 
-      const invs = await Invitation.findAll({
+      /*const invs = await Invitation.findAll({
         attributes: ['userId'],
       })
       if(invs.some(inv => inv.userId == req.body.userId)){
         return Promise.reject(new Error('The invitation by userId already exist.'))
-      }
+      }*/
       return Promise.resolve()
     }
   } catch (err) {

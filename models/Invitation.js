@@ -1,12 +1,9 @@
 'use strict'
-const moment = require('moment')
 const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   class Invitation extends Model {
     static associate(models) {
-      Invitation.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
-      //Invitation.hasMany(GuestInvitation, { foreignKey: 'invitationId', as: 'invitations' })
     }
   }
 
@@ -15,11 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM,
         values: ['pending', 'confirmed', 'denied']
-      },
-      userId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        unique: true
       },
       createdAt: {
         allowNull: false,

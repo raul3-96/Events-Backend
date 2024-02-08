@@ -2,6 +2,7 @@
 const models = require('../models')
 const User = models.User
 const bcrypt = require('bcryptjs')
+const salt = bcrypt.genSaltSync(10)
 const crypto = require('crypto')
 
 exports.indexWithInvitation = async function (req, res) {
@@ -114,7 +115,7 @@ const _register = async (req, res, userType) => {
 
 const _login = async function (req, res, userType) {
   try {
-    const user = await User.findOne({ where: { phone: req.body.phone, userType } })
+    const user = await User.findOne({ where: { phone: req.body.phone/*, userType*/ } })
     if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
       return res.status(401).send({ errors: [{ param: 'login', msg: 'Wrong credentials' }] })
     } else {

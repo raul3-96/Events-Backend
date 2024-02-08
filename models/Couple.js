@@ -30,9 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       invitationPlace:{
         type: DataTypes.STRING,
       },
-      invitationDate:{
-        type: DataTypes.DATE
-      },
       timingParty:{
         type: DataTypes.TIME,
       },

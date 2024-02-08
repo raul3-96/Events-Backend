@@ -8,7 +8,7 @@ module.exports = {
     weddingTime.setHours(15, 0, 3)
     await queryInterface.bulkInsert('Couples',
       [
-        { id:1,husbandName: 'Raul' ,wifeName:"Carmen",weddingDate:new Date(),weddingVenue:"Ruana Alta", invitationPlace:"Ruana Alta", invitationDate:new Date(),timingParty:weddingTime.toLocaleTimeString(), updatedAt: new Date(),createdAt:new Date(), userId: 3 }
+        { id:1,husbandName: 'Raul' ,wifeName:"Carmen",weddingDate:new Date(),weddingVenue:"Ruana Alta", invitationPlace:"Ruana Alta", timingParty:weddingTime.toLocaleTimeString(), updatedAt: new Date(),createdAt:new Date(), userId: 3 }
       ], {})
   },
 
