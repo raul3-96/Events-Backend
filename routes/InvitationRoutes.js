@@ -112,8 +112,8 @@ module.exports = (options) => {
       middlewares.handleValidation,
       InvitationController.updateGuest)
 
-  app.route('/invitations/:invitationId/denied')
-    /*.delete(
+  /*app.route('/invitations/:invitationId/denied')
+    .delete(
         middlewares.isLoggedIn,
         middlewares.hasRole('customer'),
         middlewares.checkEntityExists(Invitation, 'ordinvitationIderId'),

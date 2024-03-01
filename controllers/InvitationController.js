@@ -187,7 +187,7 @@ async function processStatus(res, status, id) {
 
 exports.denied = async function (req, res) {
   try {
-    await processStatus('denied', req.params.invitationId)
+    await processStatus(res, 'denied', req.params.invitationId)
   } catch (err) {
     res.status(500).send(err)
   }
