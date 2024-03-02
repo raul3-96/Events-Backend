@@ -1,9 +1,11 @@
 'use strict'
 const models = require('../models')
 const User = models.User
+const GuestInvitation = models.GuestInvitation
 const bcrypt = require('bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const crypto = require('crypto')
+const { Sequelize } = require('sequelize')
 
 exports.indexWithInvitation = async function (req, res) {
   try {
@@ -116,7 +118,32 @@ const _register = async (req, res, userType) => {
 const _login = async function (req, res, userType) {
   try {
     const user = await User.findOne({ where: { phone: req.body.phone/*, userType*/ } })
-    if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
+    //TODO: Provisional para validar usuarios del mismo núcleo
+    let isValid=false;
+    if(user){
+      const guest = await GuestInvitation.findOne({where:{userId : user.id}})
+      if(guest){
+        const invitations = await GuestInvitation.findAll({where:{invitationId : guest.invitationId}})
+        if(invitations.length>1){
+          const userIds = invitations.map(invitation => invitation.userId);
+          const users = await User.findAll({
+            where: {
+              id: {
+                [Sequelize.Op.in]: userIds,
+              },
+            },
+          });
+          const passwordToCompare = req.body.password;
+          const authenticatedUsers = users.filter(user => {
+            return bcrypt.compareSync(passwordToCompare, user.password);
+          });
+          if(authenticatedUsers.length > 0)
+            isValid =true;
+          }
+      }
+    }
+    //FIN TODO
+    if (!isValid && (!user || !bcrypt.compareSync(req.body.password, user.password))) {
       return res.status(401).send({ errors: [{ param: 'login', msg: 'Wrong credentials' }] })
     } else {
       // Possible improvement: Encode user object so it could decoded when an API call is made
